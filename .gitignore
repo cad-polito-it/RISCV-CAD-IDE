@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Other git
+/core-v-verif/
+/riscv-gnu-toolchain/
+/riscv-isa-sim/
+/riscv-pk/
+/verilator/
