@@ -10,3 +10,6 @@
 [submodule "verilator"]
 	path = verilator
 	url = https://github.com/verilator/verilator.git
+[submodule "riscv-pk"]
+	path = riscv-pk
+	url = https://github.com/riscv-software-src/riscv-pk.git
