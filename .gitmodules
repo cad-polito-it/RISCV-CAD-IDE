@@ -7,3 +7,6 @@
 [submodule "riscv-gnu-toolchain"]
 	path = riscv-gnu-toolchain
 	url = https://github.com/riscv-collab/riscv-gnu-toolchain.git
+[submodule "verilator"]
+	path = verilator
+	url = https://github.com/verilator/verilator.git
