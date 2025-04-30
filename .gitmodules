@@ -13,3 +13,6 @@
 [submodule "riscv-pk"]
 	path = riscv-pk
 	url = https://github.com/riscv-software-src/riscv-pk.git
+[submodule "programs/pulpino_ri5cy_stls"]
+	path = programs/pulpino_ri5cy_stls
+	url = https://github.com/cad-polito-it/pulpino_ri5cy_stls.git
