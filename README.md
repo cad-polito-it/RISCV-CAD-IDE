@@ -3,7 +3,6 @@ A development environment for RISCV ISA
 
 
 # Makefile instruction
-prova README (non so scriverli)
 
 ## Before
 To use properly the makefile you must do this things before the first make

@@ -15,17 +15,13 @@ CV_CORE_UC     	= $(shell echo $(CV_CORE) | tr a-z A-Z)
 DESIGN_TB_DIR  ?= $(CORE_V_VERIF)/cv32e40p
 SIMULATOR		= verilator
 
-# altre costanti utili
-##############
-# da togliere (devono essere definite via comando)
-export RISCV=/home/bellee21/tirocinio/opt/riscv
-export CV_SW_TOOLCHAIN=/home/bellee21/tirocinio/opt/riscv
-# fino a qui
-export CV_SW_PREFIX=riscv64-unknown-elf-
-export CV_SW_CC=gcc
-
-export CV_SW_MARCH=rv32imc_zicsr
-CV_SW_CFLAGS 	= -O2
+# constant needed in other makefiles
+export RISCV			=$(MAKE_DIR)/opt/riscv
+export CV_SW_TOOLCHAIN	=$(MAKE_DIR)/opt/riscv
+export CV_SW_PREFIX		=riscv64-unknown-elf-
+export CV_SW_CC			=gcc
+export CV_SW_MARCH		=rv32imc_zicsr
+CV_SW_CFLAGS 			= -O2
 
 
 # directories dei programmi di test
@@ -67,7 +63,7 @@ include $(CORE_V_VERIF)/mk/Common.mk
 
 ###############################################################################
 # Configurazione variabili per verilator
-VERILATOR 			 = /usr/local/bin/verilator
+VERILATOR 			?= /usr/local/bin/verilator
 VERI_FLAGS			+=
 SVERI_COMPILE_FLAGS += -Wno-BLKANDNBLK $(SV_CMP_FLAGS) # incoragiante commento (hope this doesn't hurt us in the long run)
 VERI_TRACE			?= 
