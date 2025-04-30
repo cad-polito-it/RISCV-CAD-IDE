@@ -1,3 +1,6 @@
 [submodule "core-v-verify"]
 	path = core-v-verify
 	url = https://github.com/openhwgroup/core-v-verif.git
+[submodule "riscv-isa-sim"]
+	path = riscv-isa-sim
+	url = https://github.com/riscv-software-src/riscv-isa-sim.git
