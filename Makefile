@@ -1,5 +1,4 @@
 # Costanti
-
 MAKE 			= make 
 MAKE_DIR 		= $(shell pwd)
 # in make path si trova il path del primo makefile usato (la cartella dove mi trovo)
@@ -87,10 +86,10 @@ SPIKE 		= spike
 SP_FLAGS   ?= pk
 
 # variabili per risultato
-OBJECTS		= objects
-SPK_RESULTS	= spike_results
-SPK_TEST_RESULTS		 = $(SPK_RESULTS)/$(TEST)
-SPK_RUN_RESULTS			 = $(SPK_TEST_RESULTS)/$(OBJECTS)
+OBJECTS				= objects
+SPK_RESULTS			= spike_results
+SPK_TEST_RESULTS	= $(SPK_RESULTS)/$(TEST)
+SPK_RUN_RESULTS		= $(SPK_TEST_RESULTS)/$(OBJECTS)
 
 ###############################################################################
 # source file del testbench per il core CV32E (anche se uso sempre lo stesso)
@@ -176,8 +175,6 @@ GOAL		  ?= sanity-veri-run
 
 
 all: clean_all sanity-veri-run
-
-#
 
 ###############################################################################
 #
