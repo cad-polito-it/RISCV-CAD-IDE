@@ -69,11 +69,11 @@ Install the enviroment typing in the shell:
 To work, the enviroment need: core-v-verify, RISC-V toolchain, spike, Verilator and the proxy kernel.  
 All the repository should be already cloned into the main one but to complete all the installations follow the instruction given by the developers:
 
-* RISC-V toolchain (riscv-gnu-toolchain) [link](https://github.com/riscv-collab/riscv-gnu-toolchain.git) N.B. make sure to follow the 32-bit toolchain;
-* spike (riscv-isa-sim) [link](https://github.com/riscv-software-src/riscv-isa-sim);
-* proxy kernel (riscv-pk) [link](https://github.com/riscv-software-src/riscv-pk);
-* verilator [link](https://verilator.org/guide/latest/install.html);
-* core-v-verify [link](https://docs.openhwgroup.org/projects/core-v-verif/en/latest/quick_start.html);
+* [RISC-V toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain.git) (riscv-gnu-toolchain) N.B. make sure to follow the 32-bit toolchain;
+* [spike](https://github.com/riscv-software-src/riscv-isa-sim) (riscv-isa-sim);
+* [proxy kernel](https://github.com/riscv-software-src/riscv-pk) (riscv-pk);
+* [verilator](https://verilator.org/guide/latest/install.html);
+* [core-v-verify](https://docs.openhwgroup.org/projects/core-v-verif/en/latest/quick_start.html);
 
 ### Variables
 
