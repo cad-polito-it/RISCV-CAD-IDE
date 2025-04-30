@@ -14,14 +14,7 @@ CV_CORE_LC     	= $(shell echo $(CV_CORE) | tr A-Z a-z)
 CV_CORE_UC     	= $(shell echo $(CV_CORE) | tr a-z A-Z)
 DESIGN_TB_DIR  ?= $(CORE_V_VERIF)/cv32e40p
 SIMULATOR		= verilator
-
-# constant needed in other makefiles
-export RISCV			=$(MAKE_DIR)/opt/riscv
-export CV_SW_TOOLCHAIN	=$(MAKE_DIR)/opt/riscv
-export CV_SW_PREFIX		=riscv64-unknown-elf-
-export CV_SW_CC			=gcc
-export CV_SW_MARCH		=rv32imc_zicsr
-CV_SW_CFLAGS 			= -O2
+CV_SW_CFLAGS 	= -O2
 
 
 # directories dei programmi di test
