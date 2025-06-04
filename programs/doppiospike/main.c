@@ -2,7 +2,7 @@
 #include <stdint.h>
 
 extern uint32_t add_numbers(uint32_t, uint32_t); // dichiara la funzione esterna assembly che riceve 
-                                                 // due interi 64bit e ne restituisce uno a sua volta
+                                                 // due interi 32bit e ne restituisce uno a sua volta
 extern uint32_t subtract(void);
 
 int main() {
@@ -11,10 +11,10 @@ int main() {
     
     result = add_numbers(a, b); // chiamata a funzione che ritorna il risultato
 
-    printf("Risultato di %lu + %lu = %lu \n", a, b, result);
+    printf("Risultato di %u + %u = %u \n", a, b, result);
 
     result = subtract();
-    printf("risultato %lu\n", result);
+    printf("risultato %u\n", result);
     return 0;
 }
 

@@ -16,5 +16,5 @@ subtract:
     # Prepara per stampare il risultato
     mv a0, t2         # Copia il risultato della sottrazione in a0 (registro per il valore da stampare)
 #    li a7, 1          # Codice della syscall per stampare un intero
-#s    ecall             # Esegui la syscall
+#    ecall             # Esegui la syscall
     ret               # Ritorna dalla funzione
