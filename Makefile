@@ -1,13 +1,12 @@
-# Costanti
+# Costants
 MAKE 			= make 
 MAKE_DIR 		= $(shell pwd)
-# in make path si trova il path del primo makefile usato (la cartella dove mi trovo)
 MAKE_PATH 	   := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 CORE_V_VERIF   ?= $(MAKE_DIR)/core-v-verif
 DATE 			= $(shell date +%F)
 WAVES			= 0
 
-# imposto il core nel caso in cui non viene fatto manualmente (mette anche i caratteri in minuscolo)
+# setup the core
 CV_CORE		   ?= CV32E40P
 CV_CORE_LC     	= $(shell echo $(CV_CORE) | tr A-Z a-z)
 CV_CORE_UC     	= $(shell echo $(CV_CORE) | tr a-z A-Z)
@@ -16,13 +15,12 @@ SIMULATOR		= verilator
 CV_SW_CFLAGS 	= -O2
 
 
-# directories dei programmi di test
-# utilizzo il path relativo perchè dice che verilator non regge path lunghi
-## QUESTA PARTE VA MODIFICATA PERCHÈ DEVO METTERCI I MIEI FILE CHE DEVONO ESSERE ESEGUITI 
+# directory of the tests
+# use relative paths because verilator can fail with long path
 TEST_PROGRAM_PATH    ?= $(MAKE_DIR)/programs
 TEST_PROGRAM_RELPATH ?= ./programs
 
-# directories di output comuni
+# common output directories 
 RUN_INDEX				?= 0
 SIM_RESULTS				 = simulation_results
 SIM_TEST_RESULTS		 = $(SIM_RESULTS)/$(TEST)
@@ -30,14 +28,14 @@ SIM_RUN_RESULTS			 = $(SIM_TEST_RESULTS)/$(RUN_INDEX)
 SIM_TEST_PROGRAM_RESULTS = $(SIM_RUN_RESULTS)/test_program
 SIM_BSP_RESULTS			 = $(SIM_TEST_PROGRAM_RESULTS)/bsp 
 
-# eventuali flag
+# flags
 SV_CMP_FLAGS =
 
-# programma da testare
+# the test that will be runned
+# default is swhw1
 TEST		?= swhw1
 
 ###############################################################################
-# roba che non ho compreso (CHIEDI)
 # Generate and include TEST_FLAGS_MAKE, based on the YAML test description.
 YAML2MAKE = $(CORE_V_VERIF)/bin/yaml2make
 TEST_FLAGS_MAKE := $(shell $(YAML2MAKE) --test=$(TEST) --yaml=test.yaml  $(YAML2MAKE_DEBUG) --run-index=$(u) --prefix=TEST --core=$(CV_CORE))
@@ -47,14 +45,14 @@ endif
 include $(TEST_FLAGS_MAKE)
 
 ###############################################################################
-# Makefiles comuni
-#  -Variabili per l'RTL e altre dipendenze (e.g. RISCV_DV)
+# Makefiles
+#  -variables for RTL and other dependecies (e.g. RISCV_DV)
 include $(CORE_V_VERIF)/cv32e40p/sim/ExternalRepos.mk
-#  -core firmware e il toolchain GCC RISCV (SDK)
+#  -core firmware and the toolchain GCC RISCV (SDK)
 include $(CORE_V_VERIF)/mk/Common.mk
 
 ###############################################################################
-# Configurazione variabili per verilator
+# variables for verilator
 VERILATOR 			?= /usr/local/bin/verilator
 VERI_FLAGS			+=
 SVERI_COMPILE_FLAGS += -Wno-BLKANDNBLK $(SV_CMP_FLAGS) # incoragiante commento (hope this doesn't hurt us in the long run)
@@ -64,35 +62,35 @@ VERI_LOG_DIR		?= $(SIM_TEST_PROGRAM_RESULTS)
 VERI_CFLAGS			+= -O2
 
 ###############################################################################
-# Configurazione variabili per spike
+# variables for spike
 GCC 		= $(CV_SW_PREFIX)gcc
 AS 			= $(CV_SW_PREFIX)as
-SRC_DIR 	= $(TEST_PROGRAM_PATH)/$(TEST)           # Cartella dove si trovano i file sorgenti
-TARGET 		= $(TEST)_spike							# Nome dell'eseguibile
+SRC_DIR 	= $(TEST_PROGRAM_PATH)/$(TEST)           # dir where there are the .c and .S
+TARGET 		= $(TEST)_spike							# Name of executable
 
-# Trova automaticamente i file .S e converte in file .o
+# find the .S and converts them in .o
 ASM_SRCS 	= $(shell find $(SRC_DIR) -name '*.S')
 ASM_OBJS 	= $(ASM_SRCS:.S=.o)
 
-# Trova il file .c (deve essercene uno solo)
+# find .c (only one)
 C_SRC 		= $(shell find $(SRC_DIR) -name '*.c')
 C_OBJ 		= $(C_SRC:.c=.o)
 
-# Tutti i file oggetto
+# all .o files
 OBJS 		= $(C_OBJ) $(ASM_OBJS)
 
-# variabili di esecuzione
+# execution variables
 SPIKE 		= spike
 SP_FLAGS   ?= pk
 
-# variabili per risultato
+# results variables
 OBJECTS				= objects
 SPK_RESULTS			= spike_results
 SPK_TEST_RESULTS	= $(SPK_RESULTS)/$(TEST)
 SPK_RUN_RESULTS		= $(SPK_TEST_RESULTS)/$(OBJECTS)
 
 ###############################################################################
-# source file del testbench per il core CV32E (anche se uso sempre lo stesso)
+# source file of the testbench for the core CV32E 
 TBSRC_HOME	:= $(CORE_V_VERIF)/$(CV_CORE_LC)/tb
 TBSRC_CORE	:= $(TBSRC_HOME)/core
 TBSRC_TOP	:= $(TBSRC_CORE)/tb_top.sv 
@@ -113,8 +111,8 @@ TBSRC_VERI  := $(TBSRC_CORE)/tb_top_verilator.sv \
 				$(TBSRC_CORE)/mm_ram.sv \
 				$(TBSRC_CORE)/dp_ram.sv
 
-# RTL source files per il core 
-# DESIGN_RTL_DIR è usato dal file CV_CORE_MANIFEST
+# RTL source files for the core 
+# DESIGN_RTL_DIR used by the file CV_CORE_MANIFEST
 CV_CORE_PKG				:= $(CORE_V_VERIF)/core-v-cores/$(CV_CORE_LC)
 CV_CORE_RTLSRC_INCDIR	:= $(CV_CORE_PKG)/rtl/include
 CV_CORE_RTLSRC_PKG		:= $(CV_CORE_PKG)/rtl/fpnew/src/fpnew_pkg.sv \
@@ -179,7 +177,6 @@ all: clean_all sanity-veri-run
 ###############################################################################
 #
 #
-# AGGIUNGERE LA PARTE VERA E PROPRIA DI VERILATOR riga 470
 #
 # We first test if the user wants to to vcd dumping. This hacky part is required
 # because we need to conditionally compile the testbench (-DVCD_TRACE) and pass
@@ -213,7 +210,7 @@ testbench_verilator: CV_CORE_pkg $(TBSRC_VERI) $(TBSRC_PKG)
 		-f $(CV_CORE_MANIFEST) \
 		$(CV_CORE_PKG)/bhv/$(CV_CORE_LC)_core_log.sv \
 		$(TBSRC_CORE)/tb_top_verilator.cpp --Mdir $(VERI_OBJ_DIR) \
-		-CFLAGS "$(VERI_CFLAGS)" \
+		-CFLAGS "$(VERI_CFLAGS) " \
 		$(VERI_COMPILE_FLAGS)
 	$(MAKE) -C $(VERI_OBJ_DIR) -f Vtb_top_verilator.mk
 	mkdir -p $(SIM_RESULTS)
@@ -251,14 +248,14 @@ clone_$(CV_CORE_LC)_rtl:
 	$(CLONE_CV_CORE_CMD)
 
 ###############################################################################
-# target generali 
+# target 
 .PHONY: tc-clean
 
-# clean up dei risultati di simulazione
+# clean up of the results
 clean-sim-results:
 	rm -rf $(SIM_RESULTS)
 
-#clean up dei file generati dal toolchain
+#clean up of the files made by toolchain
 clean-test-programs:
 	find $(TEST_PROGRAM_PATH) -name *.on		-exec rm {} \;
 	find $(TEST_PROGRAM_PATH) -name *.hex     	-exec rm {} \;
@@ -270,6 +267,7 @@ clean-test-programs:
 	find $(TEST_PROGRAM_PATH) -name *.itb	  	-exec rm {} \;
 	find $(TEST_PROGRAM_PATH) -name *.dat	  	-exec rm {} \;
 	find $(TEST_PROGRAM_PATH) -name *.vcd	  	-exec rm {} \;
+	find $(MAKE_DIR) 	-maxdepth 1 -name *.vcd	  	-exec rm {} \;
 
 
 .PHONY: clean
@@ -279,8 +277,8 @@ clean: verilate-clean clean-test-programs
 
 
 ###############################################################################
-# simulazione con spike
-# per chiamare spike si fa make GOAL=spike TEST=nometest*
+# simulation with spike
+# to call spike "make GOAL=spike TEST=testname*"
 spike: $(TARGET)
 	mkdir -p $(SPK_RESULTS)
 	mkdir -p $(SPK_TEST_RESULTS)
