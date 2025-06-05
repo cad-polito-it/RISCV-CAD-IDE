@@ -89,7 +89,7 @@ In the yaml2make located in core-v-verif/bin put your programs absolute or relat
 
 #### Setup variables
 
-To make it work there are some variables that must be defined. To do that you have to run `$ source setup.sh` in the shell.
+To make it work there are some variables that must be defined. To do that you have to run `$ source ./setup.sh` in the shell.
 Make sure to change the variable if needed:
 
 * riscv toolchain, this isn't defined in the Makefile and should be defined as **CV_SW_TOOLCHAIN** with an export, e.g /home/usr/opt/riscv;
