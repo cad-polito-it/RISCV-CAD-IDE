@@ -1,0 +1,18 @@
+[submodule "core-v-verify"]
+	path = core-v-verify
+	url = https://github.com/openhwgroup/core-v-verif.git
+[submodule "riscv-isa-sim"]
+	path = riscv-isa-sim
+	url = https://github.com/riscv-software-src/riscv-isa-sim.git
+[submodule "riscv-gnu-toolchain"]
+	path = riscv-gnu-toolchain
+	url = https://github.com/riscv-collab/riscv-gnu-toolchain.git
+[submodule "verilator"]
+	path = verilator
+	url = https://github.com/verilator/verilator.git
+[submodule "riscv-pk"]
+	path = riscv-pk
+	url = https://github.com/riscv-software-src/riscv-pk.git
+[submodule "programs/pulpino_ri5cy_stls"]
+	path = programs/pulpino_ri5cy_stls
+	url = https://github.com/cad-polito-it/pulpino_ri5cy_stls.git
